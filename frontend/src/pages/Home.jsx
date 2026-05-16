@@ -5,7 +5,7 @@ import CreatePostButton from '../components/CreatePostButton'
 import EmptyState from '../components/EmptyState'
 import PostCard from '../components/PostCard'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1/blog'
+const API_URL = import.meta.env.VITE_API_URL || 'https://blog-app-with-backend-rho.vercel.app/api/v1/blog'
 
 function Home() {
   const [posts, setPosts] = useState([])
