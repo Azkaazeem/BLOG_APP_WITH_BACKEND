@@ -3,14 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Cloudinary ki configuration
+// Cloudinary configuration
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_APIKEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// Image Upload karne ka function
+// Function to upload image
 const uploadImg = async (file) => {
   try {
     const fileName = `blog-${file.originalname.split(".")[0]}_${Date.now()}`;
@@ -44,7 +44,7 @@ const uploadImg = async (file) => {
   }
 };
 
-// Image Delete karne ka function
+// Function to delete image
 const deleteImg = async (public_id) => {
   try {
     const result = await cloudinary.v2.uploader.destroy(public_id, {

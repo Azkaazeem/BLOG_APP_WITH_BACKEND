@@ -4,18 +4,18 @@ import multer from 'multer';
 
 const blogroute = express.Router();
 
-// Multer configuration: Image ko memory mein save karne ke liye
+// Multer configuration: To save the image in memory
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
-        fileSize: 5 * 1024 * 1024, // Maximum file size 5MB allow ki hai
+        fileSize: 5 * 1024 * 1024, // Maximum file size allowed is 5MB
     }
 });
 
-// Blog bananane aur image upload karne ka route
+// Route for creating a blog and uploading an image
 blogroute.post('/create', upload.single('image'), CreateBlog);
 
-// Blog aur image delete karne ka route
+// Route for deleting a blog and its image
 blogroute.delete('/delete/:id', DeleteBlog);
 
 export default blogroute;

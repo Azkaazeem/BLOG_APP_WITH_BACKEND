@@ -1,18 +1,18 @@
 import { deleteImg, uploadImg } from "../config/cloudinary.js";
 import Blog from "../models/BlogSchema.js";
 
-// Blog Create karne ka Controller
+// Controller for creating a blog
 const CreateBlog = async (req, res) => {
     try {
         console.log("Body Data:", req.body);
         const { title, content } = req.body;
 
-        // Check karein ke file aayi hai ya nahi
+        // Check if a file was uploaded
         if (req.file) {
-            // Helper function ke zariye Cloudinary par upload karein
+            // Upload to Cloudinary using helper function
             const check = await uploadImg(req.file);
             
-            // Database ke liye object banayein (Yahan se author nikal diya hai taake bina login test ho sake)
+            // Create database object (Removed author for testing without login)
             const data1 = { 
                 title, 
                 content, 
@@ -33,21 +33,21 @@ const CreateBlog = async (req, res) => {
     }
 };
 
-// Blog Delete karne ka Controller
+// Controller for deleting a blog
 const DeleteBlog = async (req, res) => {
     const { id } = req.params;
     try {
-        // 1. Pehle database se blog dhoondein taake public_id mil sake
+        // 1. First find the blog in the database to get the public_id
         const findd = await Blog.findById(id);
         if (findd == null) {
             return res.status(404).json({ status: false, message: 'Blog not found' });
         }
         
-        // 2. Cloudinary se image delete karein
+        // 2. Delete the image from Cloudinary
         const dltImg = await deleteImg(findd.public_id);
         console.log('Cloudinary Delete Result --->', dltImg);
         
-        // 3. Phir database se blog delete karein
+        // 3. Then delete the blog from the database
         const blog = await Blog.findByIdAndDelete(id);
         console.log('Database Delete Result --->', blog);
         
