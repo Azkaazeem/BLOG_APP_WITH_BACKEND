@@ -3,8 +3,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDb from "./config/db.js";
-// import authroute from "./routes/AuthRoutes.js";
-import dns from 'dns'
+import dns from 'dns';
+
+// 1. Apne dono routes yahan import karein (authroute se comment hata dein)
+import authroute from "./routes/Blog.js";
+import blogroute from "./routes/BlogRoute.js"; 
 
 dns.setServers(['8.8.8.8', '1.1.1.1'])
 dotenv.config();
@@ -14,8 +17,7 @@ connectDb();
 
 app.use(cors({
   origin: [
-    "", // Vercel Frontend
-    "http://localhost:5173"  // Local Frontend
+    "http://localhost:5173"  // Filhal sirf local testing ke liye ye kafi hai
   ],
   credentials: true
 }));
@@ -26,6 +28,10 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.json({ message: "Successfully running!" });
 });
+
+// 2. Yahan apne API endpoints register karein
+app.use('/api/v1/auth', authroute);
+app.use('/api/v1/blog', blogroute); // Yeh add karna lazmi hai image upload k liye
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
