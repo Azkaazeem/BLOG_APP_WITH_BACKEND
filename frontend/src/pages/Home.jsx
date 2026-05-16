@@ -48,12 +48,12 @@ function Home() {
         const content = document.getElementById('post-content').value.trim()
 
         if (!image || !title || !content) {
-          Swal.showValidationMessage('Image, title aur description sab required hain')
+          Swal.showValidationMessage('Image, title, and description are all required.')
           return false
         }
 
         if (title.length < 4) {
-          Swal.showValidationMessage('Title minimum 4 characters ka hona chahiye')
+          Swal.showValidationMessage('Title must be at least 4 characters long.')
           return false
         }
 
@@ -83,7 +83,7 @@ function Home() {
       const result = await response.json()
 
       if (!response.ok || !result.status) {
-        throw new Error(result.message || 'Post create nahi ho saki')
+        throw new Error(result.message || 'Post could not be created')
       }
 
       setPosts((currentPosts) => [result.data, ...currentPosts])
@@ -91,7 +91,7 @@ function Home() {
       Swal.fire({
         icon: 'success',
         title: 'Post Published',
-        text: 'Aapki post successfully create ho gayi.',
+        text: 'Your post was created successfully.',
         timer: 1800,
         showConfirmButton: false,
         customClass: {
@@ -142,14 +142,14 @@ function Home() {
         const data = await response.json()
 
         if (!response.ok || !data.status) {
-          throw new Error(data.message || 'Post delete nahi ho saki')
+          throw new Error(data.message || 'Post could not be deleted')
         }
 
         setPosts((currentPosts) => currentPosts.filter((post) => post._id !== id))
 
         Swal.fire({
           title: 'Deleted!',
-          text: 'Aapki post successfully delete ho gayi.',
+          text: 'Your post was deleted successfully.',
           icon: 'success',
           showConfirmButton: false,
           timer: 1500,

@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDb from "./config/db.js";
 import dns from 'dns';
 
-// 1. Apne dono routes yahan import karein (authroute se comment hata dein)
+// 1. Import both routes here (uncomment authroute if needed)
 // import authroute from "./routes/Blog.js";
 import blogroute from "./routes/BlogRoute.js"; 
 
@@ -30,9 +30,9 @@ app.get("/", (req, res) => {
   res.json({ message: "Successfully running!" });
 });
 
-// 2. Yahan apne API endpoints register karein
+// 2. Register your API endpoints here
 // app.use('/api/v1/auth', authroute);
-app.use('/api/v1/blog', blogroute); // Yeh add karna lazmi hai image upload k liye
+app.use('/api/v1/blog', blogroute); // This is required for image uploads
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
