@@ -17,7 +17,8 @@ connectDb();
 
 app.use(cors({
   origin: [
-    "http://localhost:5173"  // Filhal sirf local testing ke liye ye kafi hai
+    "http://localhost:5173",
+    "https://blog-app-with-backend-odxc.vercel.app"
   ],
   credentials: true
 }));
